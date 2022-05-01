@@ -1,0 +1,120 @@
+# linux cmd alias
+#
+
+plugins=(vi-mode)
+
+alias xrandr_mirror=' xrandr --fb 1920x1080 --output eDP-1-1 --output HDMI-0 --mode 1920x1080 --scale 1x1 --same-as eDP-1-1'
+
+
+lll() {
+ ls -lt | awk '{print $NF}'
+}
+alias w='~/w'
+alias tr='/w/softwares/mytools/broot'
+alias rr='reset'
+alias h='history'
+set completion-ignore-case on
+alias ll='ls -lt --color=tty'
+alias la='ls -A'
+alias l='ls -CF'
+alias t='tmux'
+alias vim='nvim'
+alias vr='vi ~/.vimrc'
+
+alias x='nautilus .&'
+alias wo='whoami'
+alias p='paste_to_clipboard'
+
+alias cp='cp -r'
+alias rm='rm -rf'
+alias 1='cd ..'
+alias 2='cd ../../'
+alias 3='cd ../../../'
+alias f='fg'
+alias kv='killall -9 vim'
+
+
+alias cl='clear;clear'
+alias err='cat log| grep -iE "error:|undefined|candi|successfully|(required from here)"'
+
+#alias val='valgrind --tool=memcheck --leak-check=full'
+alias val='valgrind --tool=memcheck --leak-check=full --track-origins=yes'
+
+alias gdbattach='sudo gdb attach'
+alias al='alias'
+
+alias dt='cd ~/Desktop'
+
+alias syn=' source ~/.zshrc'
+alias sb='vi ~/.bashrc.d'
+alias ts='/usr/bin/tsnano -t'
+
+
+alias L='ls'
+alias LS='ls'
+alias sl='ls'
+alias ic='ifconfig | grep "inet "'
+
+
+alias lc='python /w/scripts/python/linecounter.py '
+
+alias gn=grepn
+alias py=python
+alias tf='tail -f'
+alias dn='cd ~/Downloads'
+alias su='sudo su'
+alias re='remarkable'
+alias pb='ping www.baidu.com'
+alias pg='ping 8.8.8.8'
+alias ist='sudo apt install '
+alias istf='sudo apt-get -f install'
+alias isty='ist_func'
+alias qp='qmake -project xx'
+alias o='cd /w/opensource'
+alias d='cd -'
+
+alias le='leetcode'
+alias doc='cd ~/doc'
+alias p3='python3'
+alias dv='candump -tA vcan0 | grep -i '
+alias dx='candump -tA can0 | grep -i '
+alias da='du -sh'
+alias sc='/w/scripts/python'
+alias tx='tar xf'
+alias tc='tar cvzf'
+alias log='cat /w/scripts/log | xsel -b'
+alias g++14='g++ -g -Wall -std=c++14'
+alias kssh='killall ssh'
+alias canup='sudo ip link set can0 type can bitrate 500000;sudo ip link set up can0'
+alias canup125='sudo ip link set can0 type can bitrate 125000;sudo ip link set up can0'
+alias canup250='sudo ip link set can0 type can bitrate 250000;sudo ip link set up can0'
+
+alias pa='ps aux| grep -i'
+alias tflog='co; tail -f log'
+alias j='cd /w/jowu/'
+alias jj='cd /w/jowu/job'
+alias jc='cd /w/jowu/docs'
+alias jt='cd /w/jowu/tests'
+alias a='./a'
+alias e='exit'
+alias vs='code'
+alias cdv='candump vcan0'
+alias cdv1='candump vcan1'
+alias m='make'
+alias g='g++14 -o a'
+alias ss='echo '1'|sudo -S '
+#tumx
+alias tv='tmux split-window'
+alias th='tmux split-window -h'
+alias tu='tmux select-pane -U'
+alias td='tmux select-pane -D'
+alias tl='tmux select-pane -L'
+#python
+alias activate='source /w/scripts/python/venv/bin/activate'
+
+#softwares
+alias pycharm='/w/softwares/pycharm-community-2020.2.3/bin/pycharm.sh &'
+alias bton='rfkill unblock bluetooth'
+alias btoff='rfkill block bluetooth'
+alias vi='nvim_check_args'
+

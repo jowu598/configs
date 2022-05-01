@@ -1,0 +1,476 @@
+export PATH=/h/softwares/Qt5.10.0/5.10.0/gcc_64/bin:$PATH
+export LD_LIBRARY_PATH=/h/softwares/Qt5.10.0/5.10.0/gcc_64/lib:$LD_LIBRARY_PATH 
+export QT_PLUGIN_PATH=/h/softwares/Qt5.10.0/5.10.0/gcc_64/plugins:$QT_PLUGIN_PATH
+export QML2_IMPORT_PATH=/h/softwares/Qt5.10.0/5.10.0/gcc_64/qml:$QML2_IMPORT_PATH
+
+#LD_LIBRARY_PATH+="/usr/lib/cantool"
+#LD_LIBRARY_PATH+=":$PWD/"
+#LD_LIBRARY_PATH+=":$PWD/../uos_plot/"
+#LD_LIBRARY_PATH+=":$PWD/../core/"
+#LD_LIBRARY_PATH+=":$PWD/../extern_lib/"
+#LD_LIBRARY_PATH+=":$PWD/../qcustomplot/"
+#LD_LIBRARY_PATH+=":/home/yj/workspace/code/uos/Tools/uos_tools/extern_lib/linux/lib"
+his() {
+    history | awk '{print $2" "$3" "$4" "$5" "$6}'
+}
+
+change_ownship() {
+	sudo chown `whomai` -R $1;
+	sudo chgrp `whomai` -R $1;
+}
+
+subl_func() {
+  if [ $# -eq 0 ];then
+    echo "subl need file to open?"
+  else
+    subl $1
+  fi
+}
+
+paste_to_clipboard()
+{
+	if [ $# -eq 0 ];then
+	    echo "choose file to clipborad"
+	else
+		echo "$(realpath $1)" | xsel -b
+	fi
+}
+
+ssh_wired_info() {
+    ip="192.168.100.23"
+    echo "scp -r "$(whoami)"@"$ip":"$(realpath $1)"" | xsel -b 
+}
+
+ssh_wireless_info() {
+   ip=$(ifconfig | grep wlp3s0 -A 1 | sed -n '$p' | awk '{print $2}' | grep -Eo '[0-9.]+')
+   echo "scp -r "$(whoami)"@"$ip":"$(realpath $1)""  | xsel -b 
+}
+
+add_alias() {
+    echo $1 >> ~/.bashrc;source ~/.bashrc
+}
+
+kill_vpn() 
+{
+    sudo kill -9 `ps aux | grep openvpn | awk '{print $2}'  | head -1`
+    sudo kill -9 `ps aux | grep openvpn | awk '{print $2}'  | head -1`
+    /etc/init.d/network-manager restart
+}
+
+alias kv='kill_vpn'
+
+ist_func() {
+    sudo apt-get install $1 -y
+}
+
+
+timetodo()
+{
+  cmd2 = ""
+  for arg in "$*"
+    do
+       cmd2="$cmd2 $arg"
+       echo $cmd2
+    done
+    echo "while true ;do `$cmd2`;sleep 1;done"
+}
+
+qtlink()
+{
+	#!/bin/sh  
+	exe=$1
+	des=$2 
+
+	deplist=$(ldd $exe | awk  '{if (match($3,"/")){ printf("%s "),$3 } }')  
+	echo $deplist
+	#cp $deplist $des  	
+}
+
+
+set completion-ignore-case on
+
+# some more ls aliases
+alias chog='change_ownship'
+alias ll='ls -l --color=tty'
+alias la='ls -A'
+alias l='ls -CF'
+alias c='cd /h/workspace/'
+alias x='nautilus .'
+alias cp='cp -r'
+alias rm='rm -r'
+alias 1='cd ..'
+alias 2='cd ../../'
+alias 3='cd ../../../'
+alias 4='2;2'
+alias 5='3;2'
+alias 6='5;1'
+alias vs='code'
+alias asc2v='~/sc/asc2vstram.py '
+alias aos='h;cd workspace/aos'
+alias p='paste_to_clipboard'
+alias si='ssh_wired_info'
+alias sw='ssh_wireless_info'
+alias s='subl_func'
+alias vpn='cd /h/softwares/vpn_linux;sudo openvpn /h/softwares/vpn_linux/sh01_vpn.conf'
+alias gcb='gc -b stable remotes/origin/stable'
+alias d='cd -'
+alias pp='ping 8.8.8.8'
+alias e='cat log -b | grep -E "error|Error|undefined reference to"'
+alias mk='catkin_make'
+alias sz='find_len'
+alias find_xarg='find . -name  "*.*" | xargs grep  -E'
+alias syn=' source ~/.zshrc'
+alias pdf='evince'
+alias sb='vim /h/workspace/jowu/rc/.rc'
+alias gr='git reset'
+alias gc='git checkout'
+alias gs='git status'
+alias gca='git commit --amend'
+alias gp='grep -nr '
+alias shutoff='poweroff'
+alias L='ls'
+alias LS='ls'
+alias sl='ls'
+alias ic='ifconfig | grep -E "inet addr"'
+alias gb='git branch'
+alias ga='git branch --all'
+alias ghh='git reset --hard'
+alias gr='git reset --soft'
+alias py='python'
+alias chm='kchmviewer  /h/reference/chm/C++\ Library\ Reference.chm & '
+alias lc='python /h/workspace/scripts/python/linecounter.py '
+alias gr="grep -rnE --color"  
+alias tf='tail -f 50'
+alias af="awk -F '\t' '{print NF}'"
+alias hpwd='echo -n "`hostname`  "; eval pwd' 
+alias gd='git diff'
+alias gitp='git pull'
+alias gpg='git push Goni master:refs/for/master'
+alias gpushg='git push Goni master:refs/for/master'
+alias mkwc='make -j8 libwl-iauto-common 2>log'
+alias dn='cd ~/Downloads'
+alias aptsearch='sudo apt search '
+alias su='sudo su'
+alias plot='python /h/workspace/FAE/Donatello-V2.0/script/plot_path_utm.py --plot '
+alias pcmap='python /h/workspace/FAE/Donatello-V2.0/script/vlog2coordinate.py --vlog  '
+
+
+
+alias padclose='xinput disable 11'
+alias padopen='xinput enable 11'
+alias apt='sudo apt'
+alias slv='Examples/Stereo/stereo_kitti_GPS --flagfile Examples/Stereo/config.flags'
+alias blk='Examples/Stereo/stereo_kitti_new --flagfile Examples/Stereo/config.flags '
+alias stp='./stop_uos.sh'
+alias lah='./launch_uos.sh'
+alias re='remarkable'
+alias pb='ping www.baidu.com'
+alias pg='ping 8.8.8.8'
+alias dr='./Donatello_Release.sh'
+alias td='tree Data'
+alias ist='sudo apt install '
+alias istf='sudo apt-get -f install'
+alias isty='ist_func'
+alias h='cd /h/'
+alias vrep='bash /h/softwares/V-REP_PRO_EDU_V3_4_0_Linux/vrep.sh /h/softwares/V-REP_PRO_EDU_V3_4_0_Linux/CraneTools.ttm'
+
+alias b='cd /h/bk/'
+alias ur='cd /h/workspace/release'
+alias jowu='cd /h/jowu'
+alias qp='qmake -project xx'
+alias u='cd /h/workspace/uos'
+alias uw='cd /h/workspace/wlmini'
+alias u2='cd /h/workspace/uos2'
+alias uosrm='rm -rf install build devel;syn;'
+alias i='cd /h/workspace/uos/install'
+alias o='h;cd opensource'
+alias t='cd /h/workspace/uos_tools'
+alias ut='cd /h/workspace/Tools/utools'
+alias mz='cd /h/bk/mzlog/'
+alias doc='cd /h/doc'
+alias fdisk='sudo fdisk'
+alias du='du -h'
+alias tarall='ls | xargs -I {} tar xf {}'
+alias p3='python3'
+alias dbc='cd ~/____DBC____'
+alias bug='cd ~/____BUG____'
+alias tx='tar xf'
+alias tc='tar cvzf'
+alias ncgps='nc 192.168.100.246 5017' 
+alias p2='ping 192.168.100.246'
+alias mka='catkin_make -DARM=1 install'
+alias mkad='catkin_make -DARM=1 -DCMAKE_BUILD_TYPE=Debug install'
+alias mkd='catkin_make -DCMAKE_BUILD_TYPE=Debug install'
+alias da='du -sh'
+alias wow='vlc /home/yj/Music/wow.xspf&'
+alias sc='/h/workspace/scripts/python'
+alias log='cat /h/workspace/aos/scripts/log | xsel -b'
+alias kssh='killall ssh'
+alias mkc='catkin_make -DCMAKE_BUILD_TYPE=Debug uos_chassis-cui-ctrl install'
+alias mki='catkin_make -DCMAKE_BUILD_TYPE=Debug install'
+alias mkm='catkin_make -DCMAKE_BUILD_TYPE=Debug uos_chassis-main'
+alias mkca='catkin_make -DCMAKE_BUILD_TYPE=Debug -DARM=1 uos_chassis-cui-ctrl install'
+alias mkma='catkin_make -DCMAKE_BUILD_TYPE=Debug -DARM=1 uos_chassis-main install'
+alias can=' python /h/workspace/Tools/uos_tools/scripts/candata_sender.py'
+alias env='source /h/workspace/scripts/shell/set_env.sh'
+alias chs='cd /h/workspace/uos/src/uos_chassis/'
+alias chs2='cd  /h/workspace/uos2/src/uos_chassis2'
+alias chsw='cd /h/workspace/wlmini/src/uos_chassis/'
+alias io='cd /h/workspace/uos/src/uos_io/'
+alias core='c d /h/workspace/uos/src/uos_core/'
+alias cui='env;./bin/uos_chassis-cui-ctrl'
+alias cm='bin/uos_chassis-main'
+alias cm2='bin/uos_chassis-main2'
+alias r='/h/workspace/release'
+alias un='/h/workspace/nome2'
+alias chsn='/h/workspace/nome2/src/uos_chassis'
+alias pa='ps aux | grep '
+alias greptime='python /h/workspace/scripts/python/greptime.py '
+alias canup='sudo ip link set can0 type can bitrate 500000;sudo ip link set up can0'
+alias canup1='sudo ip link set can0 type can bitrate 125000;sudo ip link set up can0'
+alias vcanup0='sudo modprobe vcan;sudo ip link add dev vcan0 type vcan;sudo ip link set up vcan0'
+alias vcanup1='sudo modprobe vcan;sudo ip link add dev vcan1 type vcan;sudo ip link set up vcan1'
+alias vcanup2='sudo modprobe vcan;sudo ip link add dev vcan2 type vcan;sudo ip link set up vcan2'
+alias xmind='cd /h/softwares/xmind-8-update7-linux/XMind_amd64/; sudo ./XMind'
+alias ff='./devel/lib/uos_chassis2/uos_chassis-fake'
+alias gf='gdb ./devel/lib/uos_chassis2/uos_chassis-fake'
+alias mock='clear;mk uos_chassis-mock'
+alias fake='clear;mk uos_chassis-fake'
+alias ka='killall ssh'
+alias e='exit'
+alias ef='cd /h/workspace/efence'
+alias chse='/h/workspace/efence/src/uos_chassis'
+alias bd='cd /h/workspace/Tools/uos_tools/can-debugger/deploy/application/build'
+alias plot='python3 /h/workspace/scripts/python/plot.py '
+hawk() {
+  cmd="ssh huanshi@10.0.88.216"
+  pwd="uisee"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp2hawk() {
+  if [ $# != 1 ];then 
+  echo "USAGE: scp_from_nv from_path"
+  return 
+  fi
+  cmd="scp -r $1  huanshi@10.0.88.216:~"
+  pwd="uisee"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+ssh_to_uadmin() {
+  cmd="ssh uadmin0"$1"@192.168.100."$1
+  pwd="UCB0"$1"201606"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp_to_uadmin() {
+  if [ $# != 2 ];then 
+  echo "USAGE: uadmin_scp ip from to"
+  return 
+  fi
+
+  cmd="scp -r $2 uadmin0"$1"@192.168.100."$1":~"
+  pwd="UCB0"$1"201606"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp_from_uadmin() {
+  if [ $# != 2 ];then 
+  echo "USAGE: uadmin_scp ip from to"
+  return 
+  fi
+  cmd="scp -r  uadmin0"$1"@192.168.100."$1":"$2 .
+  pwd="UCB0"$1"201606"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+sshnv() {
+  cmd="ssh nvidia@192.168.100.99"
+  pwd="nvidia"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+sshwk()
+{
+  cmd="ssh worker@192.168.100.99"
+  pwd="uisee"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp4nv() {
+  if [ $# != 2 ];then 
+  echo "USAGE: scp_from_nv ip from_path"
+  return 
+  fi
+  cmd="scp -r  nvidia"$1"@192.168.100."$1":"$2 .
+  pwd="nvidia"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp2nv() {
+  if [ $# != 1 ];then 
+  echo "USAGE: scp_from_nv from_path"
+  return 
+  fi
+  cmd="scp -r $1  nvidia@192.168.100.99:~"
+  pwd="nvidia"
+  echo $cmd 
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp2wk() {
+  if [ $# != 1 ];then 
+  echo "USAGE: scp_from_nv from_path"
+  return 
+  fi
+  cmd="scp -r $1  worker@192.168.100.99:~"
+  pwd="uisee"
+  echo $cmd
+  echo $pwd
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+  echo "done"
+}
+
+
+bk() {
+	if [ $# != 1 ];then 
+	return
+	fi
+	currtime=`date "+%Y-%m-%d__%H-%M-%S__"`
+	echo $currtime
+	cmd="cp -r "$1" /h/bk/"$currtime$1
+	echo $cmd
+	expect -c "
+	spawn $cmd
+	interact
+	"
+}
+
+
+bkcd() {
+	if [ $# != 1 ];then 
+	return
+	fi
+	currtime=`date "+%Y-%m-%d__%H-%M-%S__"`
+	echo $currtime
+	cmd="cp -r "$1" /h/bk/code_bk/"$currtime$1
+	echo $cmd
+	expect -c "
+	spawn $cmd
+	interact
+	"
+}
+
+gu()
+{
+	git add -u
+    git commit -m "$1"  
+}
+
+function set-title() {
+  if [[ -z "$ORIG" ]]; then
+    ORIG=$PS1
+  fi
+  TITLE="\[\e]2;$*\a\]"
+  PS1=${ORIG}${TITLE}
+}
+
+makegl()
+{
+    echo $1
+    echo $2
+    g++ -std=c++11 -o $1 $2 -lGL -lGLEW -lglfw3 -lX11 -lpthread -ldl
+}
+
+4k()
+{
+	xrandr --output eDP1 --scale 1x1
+	xrandr --output HDMI2 --scale 0.75x0.75
+}
+alias a2v='~/sc/asc2vstram.py '
+alias gcp='git cherry-pick'
+alias gcm='git commit -m'
+alias gcma='git commit --amend'
+alias grepby='python /h/workspace/scripts/python/grepfdbk.py -t'
+alias ts='/opt/Atollic_TrueSTUDIO_for_STM32_x86_64_9.1.0/ide/TrueSTUDIO&'
+alias unp='cd /h/workspace/jowu/moudles/base/unp'
+alias j='cd /h/workspace/jowu/'
+alias g29='/h/workspace/uos/devel/lib/uos_chassis/chassis-g29-ctrl'
+alias tflog='tail -f /tmp/logc'
+alias catlog='cat /tmp/logc'
+alias tf='tail -f '
+alias st='set-title'
+alias gp='git pull'
+alias ia='ifconfig -a'
+alias scp_to_uadmin='scp_to_uadmin'
+alias scp_from_uadmin='scp_from_uadmin'
+alias ssh_to_nv='ssh_to_nv'
+alias scp_to_nv='scp_to_nv'
+alias scp_from_nv='scp_from_nv'
+alias chx='chmod +x '
+alias ap='cd /h/opensource/apollo'
+alias pg='python /h/workspace/scripts/python/pgrep.py '
+
+alias plot_cs='plot cs "canstate : [0-9.]+" "vel: [0-9.]+"'
+alias tool23='cd /h/workspace/uos_tools/can-debugger/2.3-tmp; bash can-tool.sh&'
+alias rr='../devel/lib/uos_chassis/chassis_log_reader'
+alias mr='mkdir'
+alias sniffer='cansniffer -B -c -t 0 -h 5 -l 2'

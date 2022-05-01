@@ -1,0 +1,27 @@
+alias gb='git branch'
+alias ga='git branch --all'
+alias ghh='git reset --hard'
+alias gl='git log'
+alias gpush='git push origin HEAD'
+alias gu='git remote update'
+alias gk='gitk'
+alias gc='git checkout'
+alias gs='git status'
+alias gcm='git commit -m'
+alias gca='git commit --amend'
+alias gp='git pull'
+alias gd='git diff'
+alias gcp='git cherry-pick'
+alias gco='git clone'
+alias gss='git reset --soft'
+alias gss_head_1='git reset --soft HEAD@{1}'
+alias gr='git remote update; git rebase origin/master'
+alias gr_abort='git rebase --abort'
+alias gr_continue='git rebase --continue'
+
+
+gbranch() {
+  git remote update
+  git checkout -b $1 origin/$1
+}
+

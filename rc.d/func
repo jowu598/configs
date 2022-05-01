@@ -1,0 +1,186 @@
+nvim_check_args()
+{
+    if [ -e "$1" ] || [ -z "$1" ]; then
+        command nvim ${1:+"$1"}
+    else
+        printf 'No such file or directory: %s\n' "$1" >&2
+        return 1
+    fi
+}
+
+paste_to_clipboard()
+{
+	if [ $# -eq 0 ];then
+	    echo "choose file to clipborad"
+	else
+		echo "$(realpath $1)" | xsel -b
+	fi
+}
+
+gb_stm() {
+  git branch --set-upstream-to=origin/$1 HEAD
+}
+
+
+ist_func() {
+    sudo apt-get install $1 -y
+}
+
+timetodo()
+{
+  cmd2 = ""
+  for arg in "$*"
+    do
+       cmd2="$cmd2 $arg"
+       echo $cmd2
+    done
+    echo "while true ;do `$cmd2`;sleep 1;done"
+}
+
+ssh_pwd_free()
+{
+  cmd="ssh who@ip"
+  pwd="passwd"
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+ssh_nas_home()
+{
+  cmd="ssh admin@192.168.3.21"
+  pwd="5984849a"
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+ssh_nas_ip()
+{
+  cmd="ssh admin@"$1
+  pwd="5984849a"
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+ssh_adu()
+{
+  cmd="ssh root@10.0.20.201"
+  pwd="inceptio"
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+ssh_gt()
+{
+  cmd="ssh inceptio@10.8.27.239"
+  pwd="inceptio"
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp_pwd_free() {
+  if [ $# != 2 ];then 
+    return 
+  fi
+  cmd="scp -r  who@ip:$1 ."
+  pwd="passwd"
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+scp2nv() {
+  if [ $# != 1 ];then 
+    return 
+  fi
+  cmd="scp -r $1  who@ip:~"
+  pwd="passwd"
+  expect -c "
+    spawn $cmd
+    expect \"*password:*\" { send \"$pwd\r\"}
+    interact
+  "
+}
+
+kill_process() {
+	if [ $# != 1 ];then 
+	return
+	fi
+    
+    cmd="ps aux| grep $1 | head -1  | awk '{print \$2}'"
+    echo $cmd
+	expect -c "
+	spawn $cmd
+	interact
+	"
+}
+
+bk() {
+	if [ $# != 1 ];then 
+	return
+	fi
+	currtime=`date "+%m%d.%H.%M.%S"`
+	echo $currtime
+	cmd="cp -r "$1" /home/yj/bk/"$currtime$1
+	echo $cmd
+	expect -c "
+	spawn $cmd
+	interact
+	"
+}
+
+bkcd() {
+	if [ $# != 1 ];then 
+	return
+	fi
+	currtime=`date "+%Y-%m-%d__%H-%M-%S__"`
+	echo $currtime
+	cmd="cp -r "$1" /h/bk/code_bk/"$currtime$1
+	echo $cmd
+	expect -c "
+	spawn $cmd
+	interact
+	"
+}
+
+ldd_deploy() {
+  ldd $1 | awk '{print $3}' |xargs -i cp -L {} $2
+}
+
+grepn() {
+	grep "$1" -nrE . 
+}
+
+grepno() {
+	grep "$1" -nrEo . 
+}
+
+g11()     {
+	g++ -o a $1 -std=c++11 -lpthread
+}
+
+
+change_ownship() {
+	sudo chown `whomai` -R $1;
+	sudo chgrp `whomai` -R $1;
+}
+
+le_show() {
+    leetcode show $1 -gxe
+}
+
