@@ -1,0 +1,57 @@
+set mouse=a
+set clipboard^=unnamed,unnamedplus
+set nu
+set paste
+set wrap
+set history=50
+set showcmd
+
+#nmap <C-p> :Files<CR>
+#nmap <C-e> :Buffers<CR>
+#let g:fzf_action = { 'ctrl-e': 'edit' }
+
+call plug#begin('~/.vim/plugged')
+
+
+" Make sure you use single quotes
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
+
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Multiple Plug commands can be written in a single line using | separators
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Using a non-default branch
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+Plug 'fatih/vim-go', { 'tag': '*' }
+
+" Plugin options
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" https://github.com/luochen1990/rainbow for bracket
+Plug 'luochen1990/rainbow'
+
+" cpp
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'honza/vim-snippets'
+
+" coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+
+" Initialize plugin system
+call plug#end()
+

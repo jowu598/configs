@@ -1,0 +1,12 @@
+# Temp files
+*~
+*.swa
+*.swp
+
+# Neovim plugins
+/plugged
+
+# QtCreator
+*.qws
+helpcollection.qhc
+QtCreator.db
