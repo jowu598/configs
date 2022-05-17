@@ -9,6 +9,7 @@ alias xrandr_mirror=' xrandr --fb 1920x1080 --output eDP-1-1 --output HDMI-0 --m
 lll() {
  ls -lt | awk '{print $NF}'
 }
+alias m='make >&log;err'
 alias w='~/w'
 alias tr='/w/softwares/mytools/broot'
 alias rr='reset'
@@ -18,7 +19,7 @@ alias ll='ls -lt --color=tty'
 alias la='ls -A'
 alias l='ls -CF'
 alias t='tmux'
-alias vim='nvim'
+alias v='nvim'
 alias vr='vi ~/.vimrc'
 
 alias x='nautilus .&'
@@ -100,7 +101,6 @@ alias e='exit'
 alias vs='code'
 alias cdv='candump vcan0'
 alias cdv1='candump vcan1'
-alias m='make'
 alias g='g++14 -o a'
 alias ss='echo '1'|sudo -S '
 #tumx

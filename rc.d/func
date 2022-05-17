@@ -136,7 +136,7 @@ bk() {
 	fi
 	currtime=`date "+%m%d.%H.%M.%S"`
 	echo $currtime
-	cmd="cp -r "$1" /home/yj/bk/"$currtime$1
+	cmd="cp -r "$1" /w/bk/"$currtime$1
 	echo $cmd
 	expect -c "
 	spawn $cmd
